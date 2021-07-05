@@ -8,7 +8,6 @@
 import UIKit
 import ProgressHUD
 
-// added ResetVC
 class ResetPasswordViewController: UIViewController {
   
   private lazy var viewMaker = ResetViewMaker(container: self)

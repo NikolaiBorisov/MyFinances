@@ -6,8 +6,8 @@
 //
 
 import UIKit
+import SnapKit
 
-// added ResetViewMaker
 class ResetViewMaker {
   
   unowned var container: ResetPasswordViewController
@@ -34,20 +34,18 @@ class ResetViewMaker {
       resetPasswordTF,
       resetButton
     ]
-      .forEach { stackView.addArrangedSubview($0) }
+    .forEach { stackView.addArrangedSubview($0) }
     return stackView
   }()
   
   func setupLayouts() {
     container.view.addSubview(resetStackView)
     
-    NSLayoutConstraint.activate([
-      
-      resetStackView.centerXAnchor.constraint(equalTo: container.view.centerXAnchor),
-      resetStackView.topAnchor.constraint(equalTo: container.view.safeAreaLayoutGuide.topAnchor, constant: 20.0),
-      resetStackView.leadingAnchor.constraint(equalTo: container.view.safeAreaLayoutGuide.leadingAnchor, constant: 16.0)
-      
-    ])
+    resetStackView.snp.makeConstraints { make in
+      make.top.equalTo(container.view.safeAreaLayoutGuide).offset(20)
+      make.centerX.equalToSuperview()
+      make.left.equalToSuperview().offset(20)
+    }
   }
   
 }
