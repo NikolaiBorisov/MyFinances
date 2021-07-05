@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FBSDKLoginKit
 
 final class LoginViewMaker {
   
@@ -54,6 +55,13 @@ final class LoginViewMaker {
     let button = UIButton()
     button.setTitle(Constants.MFButtonType.forgotPassword.rawValue, for: .normal)
     button.setTitleColor(.customGreen, for: .normal)
+    return button
+  }()
+  
+  lazy var loginButtonFB: FBLoginButton = {
+    let button = FBLoginButton()
+    button.translatesAutoresizingMaskIntoConstraints = false
+    button.permissions = ["public_profile", "email"]
     return button
   }()
   
@@ -107,7 +115,8 @@ final class LoginViewMaker {
     [
       topStackView,
       middleStackView,
-      bottomStackView
+      bottomStackView,
+      loginButtonFB
     ]
     .forEach{ container.view.addSubview($0) }
     
@@ -121,6 +130,10 @@ final class LoginViewMaker {
       middleStackView.centerYAnchor.constraint(equalTo: container.view.centerYAnchor),
       middleStackView.leadingAnchor.constraint(equalTo: container.view.safeAreaLayoutGuide.leadingAnchor, constant: 16.0),
       middleStackView.heightAnchor.constraint(equalToConstant: 188.0),
+      
+      loginButtonFB.centerXAnchor.constraint(equalTo: container.view.centerXAnchor),
+      loginButtonFB.topAnchor.constraint(equalTo: middleStackView.bottomAnchor, constant: 10.0),
+      loginButtonFB.leadingAnchor.constraint(equalTo: container.view.safeAreaLayoutGuide.leadingAnchor, constant: 50.0),
       
       bottomStackView.centerXAnchor.constraint(equalTo: container.view.centerXAnchor),
       bottomStackView.leadingAnchor.constraint(equalTo: container.view.safeAreaLayoutGuide.leadingAnchor, constant: 16.0),

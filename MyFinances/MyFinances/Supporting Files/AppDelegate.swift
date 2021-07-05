@@ -8,6 +8,8 @@
 import UIKit
 import FBSDKCoreKit
 
+// added framework FBSDKCoreKit and updated AppDelegate
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
   
@@ -24,7 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       application,
       didFinishLaunchingWithOptions: launchOptions
     )
-    
     return true
   }
   
@@ -49,7 +50,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       NSAttributedString.Key.foregroundColor: UIColor.white,
       NSAttributedString.Key.font: UIFont.avenirNextMedium20,
     ]
-    
     UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.avenirNextMedium18], for: .normal)
     UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
     UINavigationBar.appearance().tintColor = .white

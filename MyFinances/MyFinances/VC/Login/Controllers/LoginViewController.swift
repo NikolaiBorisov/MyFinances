@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import FBSDKLoginKit
 
 protocol LogInOutput: AnyObject {
   func didFinishAuthorization()
@@ -23,6 +24,26 @@ final class LoginViewController: UIViewController {
     setupHideKeyboardOnTaps()
     viewMaker.setupLayouts()
     setupActionForButton()
+    setupAccessTokenForFB()
+  }
+  
+  private func setupAccessTokenForFB() {
+    if let token = AccessToken.current,
+       !token.isExpired {
+      let token = token.tokenString
+      let request = FBSDKLoginKit.GraphRequest(
+        graphPath: "me",
+        parameters: ["fields": "email , name"],
+        tokenString: token,
+        version: nil,
+        httpMethod: .get
+      )
+      request.start(completion: {connection, result, error in
+        print("\(String(describing: result))")
+      })
+    } else {
+      viewMaker.loginButtonFB.delegate = self
+    }
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -59,8 +80,6 @@ final class LoginViewController: UIViewController {
   }
   
   @objc private func onForgotButtonTapped(_ sender: UIButton) {
-    // TODO: logic for forgotten password will be here
-    //showForgottenPasswordAlert()
     let vc = ResetPasswordViewController()
     vc.modalTransitionStyle = .flipHorizontal
     navigationController?.pushViewController(vc, animated: true)
@@ -82,5 +101,27 @@ extension LoginViewController: UITextFieldDelegate {
     textField.resignFirstResponder()
     return true
   }
+  
+}
+
+// MARK: - Facebook Log In
+
+extension LoginViewController: LoginButtonDelegate {
+  
+  func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
+    let token = result?.token?.tokenString
+    let request = FBSDKLoginKit.GraphRequest(
+      graphPath: "me",
+      parameters: ["fields": "email , name"],
+      tokenString: token,
+      version: nil,
+      httpMethod: .get
+    )
+    request.start(completion: {connection, result, error in
+      print("\(String(describing: result))")
+    })
+  }
+  
+  func loginButtonDidLogOut(_ loginButton: FBLoginButton) {}
   
 }

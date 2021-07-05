@@ -27,20 +27,4 @@ extension UIViewController {
     present(alertController, animated: true, completion: nil)
   }
   
-  func showForgottenPasswordAlert() {
-    let alert = UIAlertController(
-      title: "Get a new password",
-      message: "Enter your email and we will send all the information you needed",
-      preferredStyle: .alert
-    )
-    let closeAction = UIAlertAction(title: "Dismiss", style: .destructive)
-    let sendAction = UIAlertAction(title: "Send", style: .default)
-    let tf = alert.textFields?.first
-    let text = tf?.text
-    alert.addTextField()
-    alert.addAction(closeAction)
-    alert.addAction(sendAction)
-    present(alert, animated: true, completion: nil)
-  }
-  
 }

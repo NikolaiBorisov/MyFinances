@@ -70,7 +70,7 @@ enum Constants {
   }
   
   enum MFTextFieldType: String {
-    case passwordPlaceholder = "Password"
+    case passwordPlaceholder = "Password (Min: 6 characters)"
     case fullNamePlaceholder = "Full Name"
     case phoneNumberPlaceholder = "Phone Number"
     case emailAddressPlaceholder = "E-mail"
