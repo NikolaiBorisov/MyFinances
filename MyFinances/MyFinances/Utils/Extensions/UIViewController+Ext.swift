@@ -27,6 +27,7 @@ extension UIViewController {
     present(alertController, animated: true, completion: nil)
   }
   
+  // added alert for forgotten password
   func showForgottenPasswordAlert() {
     let alert = UIAlertController(
       title: "Get a new password",
